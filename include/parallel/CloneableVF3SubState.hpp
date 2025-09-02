@@ -22,6 +22,7 @@ namespace vflib
 	/*----------------------------------------------------------
 	 * class CloneableVF3SubState
 	 * VF3L State with clone copy constructor
+	 * Experimental (not tested)
 	 ---------------------------------------------------------*/
 	template <typename Node1, typename Node2,
 		typename Edge1, typename Edge2,

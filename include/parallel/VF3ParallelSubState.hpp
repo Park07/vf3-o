@@ -55,6 +55,8 @@ private:
 
   int added_node1;    //Last added node
 
+  bool edgeInduced; // If true, the algorithm solves the edge-induced subgraph isomorphism problem
+
   //nodeID_t* predecessors;  //Previous node in the ordered sequence connected to a node
 
   std::vector<nodeID_t> core_1;
@@ -463,8 +465,8 @@ bool VF3ParallelSubState<Node1,Node2,Edge1,Edge2,NodeComparisonFunctor,EdgeCompa
 
 
   // Check the 'out' edges of node2
-  if(!edgeInduced)
-  {
+  // if(1) //!edgeInduced)
+  // {
     for(i=0; i<g2->OutEdgeCount(node2); i++)
     { other2=g2->GetOutEdge(node2, i);
       c_other = class_2[other2];
@@ -484,7 +486,7 @@ bool VF3ParallelSubState<Node1,Node2,Edge1,Edge2,NodeComparisonFunctor,EdgeCompa
           if (!g1->HasEdge(other1, node1))
             return false;
         }
-    }
+    // }
   }
   //std::cout << "\nIs Feasible: " << node1 << " " << node2;
   return true;

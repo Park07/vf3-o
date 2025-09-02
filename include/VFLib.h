@@ -31,7 +31,8 @@ typedef vflib::VF3LightSubState<data_t, data_t, vflib::Empty, vflib::Empty> stat
 #include "parallel/ParallelMatchingEngine.hpp"
 #include "parallel/ParallelMatchingEngineWLS.hpp"
 #include "parallel/CloneableVF3ParallelSubState.hpp"
-typedef vflib::CloneableVF3ParallelSubState<data_t, data_t, vflib::Empty, vflib::Empty> state_t;
+#include "parallel/VF3ParallelSubState.hpp"
+typedef vflib::VF3ParallelSubState<data_t, data_t, vflib::Empty, vflib::Empty> state_t;
 #endif
 
 #endif /* VFLIB_H*/

@@ -9,7 +9,10 @@ import json
 import psutil
 
 TIMEOUT_MAX = 3600 # 1 hrs
-
+DATABASE_LIST = ['DBLP', 'web_Google', 'live_journal']
+A = 2
+T = 20
+C = 0
 
 def run_vf3(exe_path: str, res_dir: str, log_file: str, error_file: str, query_path: str, target_path: str, results_dict: dict, args: list, query_size: str, query_indx: str, labels: str):
     
@@ -65,7 +68,7 @@ def run_vf3(exe_path: str, res_dir: str, log_file: str, error_file: str, query_p
             results_dict[query_size][query_indx][labels]['success'] = 0
             results_dict[query_size][query_indx][labels]['error_info'] = error_str     
             
-    except Exception as e:
+    except subprocess.TimeoutExpired as e:
         print(f"Error: {e}")
        
         results_dict[query_size][query_indx][labels]['success'] = 0
@@ -93,13 +96,14 @@ if __name__ == '__main__':
     parser.add_argument('--dataset_name', type=str,
                         default='DBLP')
     parser.add_argument('--bin_path', type=str, default='/graph-matching-analysis/baseline_algorithms/vf3lib/bin')
-    parser.add_argument('--edge_induced', type=bool, default=False)
-    parser.add_argument('--graphs_induced', type=bool, default=True)
-    parser.add_argument('--resume', type=bool, default=False)
+    parser.add_argument('--edge_induced', type=int, default=0)
+    parser.add_argument('--graphs_induced', type=int, default=1)
+    parser.add_argument('--resume', type=int, default=0)
     parser.add_argument('--resume_file', type=str, default='')
-    parser.add_argument('--undirected', type=bool, default=False)
-    parser.add_argument('--light', type=bool, default=False)
+    parser.add_argument('--undirected', type=int, default=0)
+    parser.add_argument('--light', type=int, default=0)
     parser.add_argument('--query_size', type=int, default=64)
+    parser.add_argument('--parallel', type=int, default=0)
 
     
     args = parser.parse_args()
@@ -108,12 +112,13 @@ if __name__ == '__main__':
     if args.resume:
         with open(args.resume_file, 'r') as f:
             results_dict = json.load(f)
-        
-    print(f"Node Induced: {not args.edge_induced} - Graphs Induced: {args.graphs_induced} - Undirected: {args.undirected} - Light: {args.light}")
-    
+
+    print(f"Node Induced: {not args.edge_induced} - Graphs Induced: {args.graphs_induced} - Undirected: {args.undirected} - Light: {args.light} - Parallel {args.parallel}")
+
+    os.makedirs(args.dataset_name, exist_ok=True)
 
     print(f"Testing Query Size: {args.query_size}")
-    if args.dataset_name == 'DBLP':
+    if args.dataset_name in DATABASE_LIST:
         query_folder = f"{args.database_foder}/{args.query_size}"
         if args.graphs_induced:
             query_folder = f"{query_folder}/node_induced"
@@ -127,10 +132,16 @@ if __name__ == '__main__':
         LABEL_SIZE = ['-1']
     
     # # create log file 
-    log_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), f"log_{args.dataset_name}_graphs_induced_{args.graphs_induced}_node_induced_{not args.edge_induced}_undirected_{args.undirected}_vf_light_{args.light}_query_size_{args.query_size}.txt")
+    if args.parallel != 1:
+        log_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), f"log_{args.dataset_name}_graphs_induced_{args.graphs_induced}_node_induced_{not args.edge_induced}_undirected_{args.undirected}_vf_light_{args.light}_query_size_{args.query_size}.txt")
 
-    error_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), f"log_{args.dataset_name}_graphs_induced_{args.graphs_induced}_node_induced_{not args.edge_induced}_undirected_{args.undirected}_vf_light_{args.light}_query_size_{args.query_size}_graphs_error.txt")
+        error_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), f"log_{args.dataset_name}_graphs_induced_{args.graphs_induced}_node_induced_{not args.edge_induced}_undirected_{args.undirected}_vf_light_{args.light}_query_size_{args.query_size}_graphs_error.txt")
+    else:
+        log_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), f"log_{args.dataset_name}_graphs_induced_{args.graphs_induced}_node_induced_{not args.edge_induced}_undirected_{args.undirected}_vf_parallel_{args.parallel}_a_{A}_t_{T}_c_{C}_query_size_{args.query_size}.txt")
 
+        error_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), f"log_{args.dataset_name}_graphs_induced_{args.graphs_induced}_node_induced_{not args.edge_induced}_undirected_{args.undirected}_vf_parallel_{args.parallel}_a_{A}_t_{T}_c_{C}_query_size_{args.query_size}_graphs_error.txt")
+
+    res_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), args.dataset_name)
     
     for label_indx, label_size in enumerate(LABEL_SIZE):
         print(f"\tTesting Label Size: {label_size}")
@@ -144,7 +155,7 @@ if __name__ == '__main__':
         print(f"\tNumber of Queries: {len(query_files)}")
         
         # data file path
-        if args.dataset_name == 'DBLP':
+        if args.dataset_name in DATABASE_LIST:
             if 'original_labels' in label_size:
                 data_path = f"{args.database_foder}/data.grf"
             else:
@@ -155,9 +166,8 @@ if __name__ == '__main__':
             
         for idx, query_file in enumerate(query_files):
             print(query_file)
-            
-            qs = query_file.split('/')[3] if args.dataset_name == 'DBLP' else query_file.split('/')[-2] 
-            if args.dataset_name == 'DBLP':
+            qs = query_file.split('/')[3] if args.dataset_name in DATABASE_LIST else query_file.split('/')[-2] 
+            if args.dataset_name in DATABASE_LIST:
                 qi = query_file.split('/')[-1].split('.')[0].split('_')[-2] if 'original_labels' not in query_file else query_file.split('/')[-1].split('.')[0].split('_')[-1] 
                 
                 lab_size = query_file.split('/')[-1].split('.')[0].split('_')[-1] if 'original_labels' not in query_file else 'original_labels'
@@ -174,7 +184,7 @@ if __name__ == '__main__':
                 print(f"\t\tQuery: {query_file} already tested")
             else:
                 # check for the previous label size
-                if args.dataset_name == 'DBLP':
+                if args.dataset_name in DATABASE_LIST:
                     previous_label = LABEL_SIZE[label_indx - 1] if label_indx > 0 else None
                     if previous_label is not None:
                         previsous_label_size = previous_label.split('_')[-1]
@@ -191,7 +201,7 @@ if __name__ == '__main__':
                             results_dict[qs][qi][lab_size]['error_info'] = 'Timeout'
                             
                             algo_prop = log_file.split('/')[-1].split('.')[0].split('log_')[-1]
-                            with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), f"{algo_prop}.json"), 'w') as f:
+                            with open(os.path.join(res_dir, f"{algo_prop}.json"), 'w') as f:
                                 json.dump(results_dict, f)                          
                             continue
                 
@@ -201,10 +211,16 @@ if __name__ == '__main__':
                 args_vf = []
               
                 # run VF3 algorithm
-                if args.light == False:
+                if args.light == False and args.parallel != True:
                     exe_path = f"{args.bin_path}/vf3"
-                else:
+                elif args.light == True and args.parallel != True:
                     exe_path = f"{args.bin_path}/vf3l"
+                elif args.parallel == True:
+                    exe_path = f"{args.bin_path}/vf3p"
+                    args_vf.append(f'-a {A}')   # 1 use GSS; 2 use LSS
+                    args_vf.append(f'-t {T}')  # number of threads
+                    args_vf.append(f'-c {C}')
+
 
                 if args.edge_induced:
                     # use the flag -e for edge induced subgraph isomorphism
@@ -216,7 +232,7 @@ if __name__ == '__main__':
                 # print(log_file)
                 # print(f"\t\tAlgo prob {log_file.split('/')[-1].split('.')[0].split('log_')[-1]}")
                 results_dict = run_vf3(exe_path=exe_path,
-                                res_dir = os.path.dirname(os.path.realpath(__file__)),
+                                res_dir = res_dir,
                                 log_file=log_file, 
                                 error_file = error_file,
                                 query_path=query_file, 

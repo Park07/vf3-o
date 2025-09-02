@@ -28,6 +28,7 @@ namespace vflib
  * VF3ParallelSubState with optimized copy constructor
  * Clone structure only if requested
  * With Backtrack
+ * Experimental (not tested)
  ---------------------------------------------------------*/
 template <typename Node1, typename Node2,
 typename Edge1, typename Edge2,
