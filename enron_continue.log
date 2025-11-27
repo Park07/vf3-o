@@ -1,0 +1,10 @@
+nohup: ignoring input
+================================================================
+VF3 OpenMP - ENRON Continue (Tests 14-48)
+Memory limit: 440GB
+================================================================
+[Test 14/48] sparse 24v @ 8t
+  → 3648 solutions, 174GB
+[Test 15/48] sparse 24v @ 16t
+  → 1329 solutions, 62GB
+[Test 16/48] sparse 24v @ 32t

@@ -1,0 +1,13 @@
+nohup: ignoring input
+Testing: sparse/dense × 8v,16v,32v × 1,8,16,32,48,64t = 36 tests @ 60s + 15s cooldown
+[1/36] sparse 8v @ 1t... (05:53:59)
+  → 14501 solutions, 68GB
+  Cooldown 15s...
+[2/36] sparse 8v @ 8t... (05:55:16)
+  → 1899757 solutions, 240GB
+  Cooldown 15s...
+[3/36] sparse 8v @ 16t... (05:56:38)
+run_dblp_with_cooldown.sh: line 26: 2451330 Killed                  /usr/bin/time -v -o /tmp/t.txt timeout 60s ~/vf3-o/bin/vf3p "$query" ~/vf3_test_dblp/dblp_NO_LABELS.graph -a 2 -t $threads -l 0 -h 3 > /tmp/o.txt 2>&1
+  → 0 solutions, 0GB
+  Cooldown 15s...
+[4/36] sparse 8v @ 32t... (06:11:56)

@@ -1,0 +1,7 @@
+Type,Size,Threads,Solutions,TotalTime_s,MaxMemory_KB,CPU_Percent,ContextSwitches,PageFaults,Status
+sparse,24,8,0,25,0,0,0,0,OK
+sparse,24,16,0,25,0,0,0,0,OK
+sparse,24,32,0,25,0,0,0,0,OK
+sparse,24,48,0,25,0,0,0,0,OK
+sparse,24,64,0,25,0,0,0,0,OK
+sparse,32,1,0,25,0,0,0,0,OK

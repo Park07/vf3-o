@@ -1,0 +1,7 @@
+Type,Size,Threads,Solutions,TotalTime_s,MaxMemory_KB,CPU_Percent,ContextSwitches,Status
+sparse,8,1,15501,59.541,0,0,0,TIMEOUT
+sparse,8,8,1881271,59.3458,0,0,0,TIMEOUT
+sparse,8,16,3926980,59.3392,0,0,0,TIMEOUT
+sparse,8,32,3330661,59.3545,0,0,0,TIMEOUT
+sparse,8,48,Aborted,after,0,0,0,OK
+sparse,8,64,terminate,recursively,0,0,0,OK

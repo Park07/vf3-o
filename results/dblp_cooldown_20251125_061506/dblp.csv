@@ -1,0 +1,2 @@
+Type,Size,Threads,Solutions,TotalTime_s,MaxMemory_KB,CPU_Percent,ContextSwitches,PageFaults,Status
+sparse,8,1,Killed,60,0,0,0,0,TIMEOUT

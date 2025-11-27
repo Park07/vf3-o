@@ -1,0 +1,3 @@
+Type,Size,Threads,Solutions,TotalTime_s,MaxMemory_KB,CPU_Percent,ContextSwitches,PageFaults,Status
+sparse,8,8,1846784,59.4646,252648472,701,1337442,71287544,TIMEOUT
+sparse,8,16,0,60,317035164,213,3271798,86780473,TIMEOUT

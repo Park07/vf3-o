@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <iostream>
+#include <mutex>
 #include <fstream>
 #include <stdlib.h>
 #include <string>
@@ -21,6 +22,8 @@
 #include "WindowsTime.h"
 #include "VFLib.h"
 #include "Options.hpp"
+void* global_matching_engine_ptr = nullptr;
+struct timeval global_start_time;
 
 using namespace vflib;
 
@@ -28,15 +31,31 @@ using namespace vflib;
 #ifndef WIN32
 void sig_handler(int sig) {
     switch (sig) {
-		case SIGKILL:
-			std::cout << "Killed \n";
+		case SIGTERM:
+			{
+				static std::mutex print_mutex;
+				static bool already_printed = false;
+
+				std::lock_guard<std::mutex> lock(print_mutex);
+				if (!already_printed && global_matching_engine_ptr != nullptr) {
+					already_printed = true;
+					struct timeval end_time;
+					gettimeofday(&end_time, NULL);
+					double elapsed = (end_time.tv_sec - global_start_time.tv_sec) +
+									(end_time.tv_usec - global_start_time.tv_usec) / 1000000.0;
+					auto* engine = static_cast<vflib::MatchingEngine<state_t>*>(global_matching_engine_ptr);
+					std::cout << engine->GetSolutionsCount() << " 0 " << elapsed << " TIMEOUT\n";
+					std::cout.flush();
+				} else if (!already_printed) {
+					std::cout << "Terminated\n";
+				}
+			}
 			exit(-1);
+			break;
 		case SIGABRT:
 			std::cout << "Aborted \n";
 			exit(-1);
-		case SIGTERM:
-			std::cout << "Terminated \n";
-			exit(-1);
+
 		case SIGSEGV:
 			std::cout << "Segmentation fault \n";
 			exit(-1);
@@ -194,20 +213,22 @@ int32_t main(int32_t argc, char** argv)
 			// for (auto i : sorted)
 			// 	std::cout << i << " ";
 			// std::cout << std::endl;
-			
+
 
 			#ifdef TRACE
 			me->InitTrace(outfilename);
 			#endif
-			
-			state_t s0(&patt_graph, &targ_graph, class_patt.data(), class_targ.data(), classes_count, sorted.data(), opt.edgeInduced); 
-            
+
+			state_t s0(&patt_graph, &targ_graph, class_patt.data(), class_targ.data(), classes_count, sorted.data(), opt.edgeInduced);
+
             if(opt.firstOnly)
             {
                 me->FindFirstMatching(s0);
             }
             else
             {
+				global_matching_engine_ptr = me;
+				gettimeofday(&global_start_time, NULL);
                 me->FindAllMatchings(s0);
 			}
 
@@ -218,7 +239,7 @@ int32_t main(int32_t argc, char** argv)
 		}
 
 	#ifndef TRACE
-		
+
 			gettimeofday(&end, NULL);
 			totalExecTime += GetElapsedTime(iter, end);
 			if(!opt.firstOnly)
@@ -226,10 +247,10 @@ int32_t main(int32_t argc, char** argv)
                 end = me->GetFirstSolutionTime();
 			    timeFirst += GetElapsedTime(iter, end);
             }
-		
+
 	} while (totalExecTime < opt.repetitionTimeLimit);
 	timeAll = totalExecTime/rep;
-	
+
     if(!opt.firstOnly)
     {
         timeFirst /= rep;

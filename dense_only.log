@@ -1,0 +1,55 @@
+nohup: ignoring input
+================================================================
+VF3 OpenMP - ENRON DENSE QUERIES ONLY
+Tests: dense 8v, 16v, 24v, 32v × 6 thread counts = 24 tests
+Timeout: 25s per test
+Memory limit: 440GB
+Estimated time: ~10 minutes
+================================================================
+
+=== Testing dense 8v ===
+[Test 1/24] dense 8v @ 1t (23:36:56)
+  → 948425 solutions, 2GB
+[Test 2/24] dense 8v @ 8t (23:37:21)
+  → 4719205 solutions, 80GB
+[Test 3/24] dense 8v @ 16t (23:37:49)
+  → 53085 solutions, 58GB
+[Test 4/24] dense 8v @ 32t (23:38:17)
+  → 19389 solutions, 57GB
+[Test 5/24] dense 8v @ 48t (23:38:45)
+  → 7073 solutions, 52GB
+[Test 6/24] dense 8v @ 64t (23:39:13)
+  → 6338 solutions, 45GB
+
+=== Testing dense 16v ===
+[Test 7/24] dense 16v @ 1t (23:39:41)
+  → 0 solutions, 0GB
+[Test 8/24] dense 16v @ 8t (23:40:06)
+  → 0 solutions, 4GB
+[Test 9/24] dense 16v @ 16t (23:40:31)
+  → 0 solutions, 8GB
+[Test 10/24] dense 16v @ 32t (23:40:57)
+  → 0 solutions, 22GB
+[Test 11/24] dense 16v @ 48t (23:41:23)
+  → 0 solutions, 24GB
+[Test 12/24] dense 16v @ 64t (23:41:49)
+  → 0 solutions, 25GB
+
+=== Testing dense 24v ===
+[Test 13/24] dense 24v @ 1t (23:42:15)
+  → 1966 solutions, 13GB
+[Test 14/24] dense 24v @ 8t (23:42:40)
+  → 9634 solutions, 165GB
+[Test 15/24] dense 24v @ 16t (23:43:11)
+  → 7013 solutions, 57GB
+[Test 16/24] dense 24v @ 32t (23:43:39)
+  → 711 solutions, 55GB
+[Test 17/24] dense 24v @ 48t (23:44:07)
+  → 557 solutions, 51GB
+[Test 18/24] dense 24v @ 64t (23:44:35)
+  → 2034 solutions, 44GB
+
+=== Testing dense 32v ===
+[Test 19/24] dense 32v @ 1t (23:45:03)
+  → 0 solutions, 0GB
+[Test 20/24] dense 32v @ 8t (23:45:28)

@@ -1,0 +1,129 @@
+nohup: ignoring input
+================================================================
+DBLP Complete Benchmark - VF3 OpenMP
+Memory Cap: 450GB | Timeout: 60s
+Sizes: 8v, 16v, 32v | Threads: 8, 16, 32, 48, 64, 96
+Total tests: 36 (6 sizes × 6 threads)
+================================================================
+
+=== Testing sparse queries ===
+[1/36] sparse 8v @ 8t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_sparse_8v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[2/36] sparse 8v @ 16t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_sparse_8v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[3/36] sparse 8v @ 32t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_sparse_8v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[4/36] sparse 8v @ 48t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_sparse_8v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[5/36] sparse 8v @ 64t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_sparse_8v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[6/36] sparse 8v @ 96t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_sparse_8v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[7/36] sparse 16v @ 8t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_sparse_16v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[8/36] sparse 16v @ 16t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_sparse_16v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[9/36] sparse 16v @ 32t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_sparse_16v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[10/36] sparse 16v @ 48t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_sparse_16v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[11/36] sparse 16v @ 64t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_sparse_16v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[12/36] sparse 16v @ 96t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_sparse_16v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[13/36] sparse 32v @ 8t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_sparse_32v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[14/36] sparse 32v @ 16t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_sparse_32v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[15/36] sparse 32v @ 32t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_sparse_32v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[16/36] sparse 32v @ 48t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_sparse_32v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[17/36] sparse 32v @ 64t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_sparse_32v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[18/36] sparse 32v @ 96t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_sparse_32v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+
+=== Testing dense queries ===
+[19/36] dense 8v @ 8t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_dense_8v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[20/36] dense 8v @ 16t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_dense_8v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[21/36] dense 8v @ 32t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_dense_8v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[22/36] dense 8v @ 48t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_dense_8v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[23/36] dense 8v @ 64t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_dense_8v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[24/36] dense 8v @ 96t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_dense_8v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[25/36] dense 16v @ 8t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_dense_16v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[26/36] dense 16v @ 16t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_dense_16v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[27/36] dense 16v @ 32t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_dense_16v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[28/36] dense 16v @ 48t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_dense_16v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[29/36] dense 16v @ 64t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_dense_16v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[30/36] dense 16v @ 96t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_dense_16v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[31/36] dense 32v @ 8t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_dense_32v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[32/36] dense 32v @ 16t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_dense_32v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[33/36] dense 32v @ 32t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_dense_32v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[34/36] dense 32v @ 48t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_dense_32v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[35/36] dense 32v @ 64t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_dense_32v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+[36/36] dense 32v @ 96t... vf3 [pattern] [target] -c [start cpu] -t [# of threads] -a [version id] -h [SSR high limit] -l [local stack limit] -k -u -s -f [graph format]
+run_dblp_final_safe.sh: line 72: /home/williamp/vf3_test_dblp/query_dense_32v_1_NO_LABELS.graph: Permission denied
+❌ ERROR 127
+
+================================================================
+COMPLETE! Results saved to:
+/home/williamp/vf3-o/results/dblp_final_20251125_051951/dblp_complete.csv
+
+Summary:
+0
+0
+0
+================================================================

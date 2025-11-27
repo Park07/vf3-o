@@ -1,0 +1,11 @@
+nohup: ignoring input
+================================================================
+VF3 OpenMP - ENRON Complete Performance Analysis
+Timeout: 25 seconds per test
+Threads: 1, 8, 16, 32, 48, 64
+Query sizes: 8v, 16v, 24v, 32v (dense + sparse)
+Total tests: 48
+Estimated time: ~20 minutes
+================================================================
+
+./run_enron_vf3openmp.sh: 154: Syntax error: "(" unexpected

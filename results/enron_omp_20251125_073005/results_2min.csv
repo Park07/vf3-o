@@ -1,0 +1,17 @@
+Type,Size,Threads,Solutions,TotalTime_s,MaxMemory_KB,Timeout
+sparse,16,1,/home/williamp/vf3-o/run_enron_2min.sh:,/home/williamp/vf3_test_enron_NEW/enron_NO_LABELS.graph:,2240,120s
+dense,16,1,/home/williamp/vf3-o/run_enron_2min.sh:,/home/williamp/vf3_test_enron_NEW/enron_NO_LABELS.graph:,2256,120s
+dense,16,8,/home/williamp/vf3-o/run_enron_2min.sh:,/home/williamp/vf3_test_enron_NEW/enron_NO_LABELS.graph:,2088,120s
+dense,16,16,/home/williamp/vf3-o/run_enron_2min.sh:,/home/williamp/vf3_test_enron_NEW/enron_NO_LABELS.graph:,2280,120s
+dense,8,32,/home/williamp/vf3-o/run_enron_2min.sh:,/home/williamp/vf3_test_enron_NEW/enron_NO_LABELS.graph:,2280,120s
+dense,16,32,/home/williamp/vf3-o/run_enron_2min.sh:,/home/williamp/vf3_test_enron_NEW/enron_NO_LABELS.graph:,2080,120s
+dense,16,48,/home/williamp/vf3-o/run_enron_2min.sh:,/home/williamp/vf3_test_enron_NEW/enron_NO_LABELS.graph:,2280,120s
+dense,16,64,/home/williamp/vf3-o/run_enron_2min.sh:,/home/williamp/vf3_test_enron_NEW/enron_NO_LABELS.graph:,2132,120s
+dense,32,1,/home/williamp/vf3-o/run_enron_2min.sh:,/home/williamp/vf3_test_enron_NEW/enron_NO_LABELS.graph:,2288,120s
+sparse,32,8,/home/williamp/vf3-o/run_enron_2min.sh:,/home/williamp/vf3_test_enron_NEW/enron_NO_LABELS.graph:,2284,120s
+dense,32,8,/home/williamp/vf3-o/run_enron_2min.sh:,/home/williamp/vf3_test_enron_NEW/enron_NO_LABELS.graph:,2288,120s
+dense,32,16,/home/williamp/vf3-o/run_enron_2min.sh:,/home/williamp/vf3_test_enron_NEW/enron_NO_LABELS.graph:,2292,120s
+dense,32,32,/home/williamp/vf3-o/run_enron_2min.sh:,/home/williamp/vf3_test_enron_NEW/enron_NO_LABELS.graph:,2288,120s
+sparse,32,48,/home/williamp/vf3-o/run_enron_2min.sh:,/home/williamp/vf3_test_enron_NEW/enron_NO_LABELS.graph:,2144,120s
+dense,32,48,/home/williamp/vf3-o/run_enron_2min.sh:,/home/williamp/vf3_test_enron_NEW/enron_NO_LABELS.graph:,2232,120s
+dense,32,64,/home/williamp/vf3-o/run_enron_2min.sh:,/home/williamp/vf3_test_enron_NEW/enron_NO_LABELS.graph:,2280,120s

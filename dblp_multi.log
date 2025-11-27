@@ -1,0 +1,17 @@
+nohup: ignoring input
+Testing DBLP: 8v,16v,32v × sparse,dense × 8,16,32,48,64t = 30 tests
+[1/30] sparse 8v @ 8t (04:44:31)
+  → 1917686 solutions, 234GB
+[2/30] sparse 8v @ 16t (04:45:37)
+  → 3527958 solutions, 309GB
+[3/30] sparse 8v @ 32t (04:46:46)
+  → 2964252 solutions, 391GB
+[4/30] sparse 8v @ 48t (04:47:58)
+  → 0 solutions, 454GB
+[5/30] sparse 8v @ 64t (04:48:51)
+  → 917256 solutions, 489GB
+[6/30] sparse 16v @ 8t (04:50:11)
+  → 0 solutions, 495GB
+[7/30] sparse 16v @ 16t (04:55:24)
+  → 0 solutions, 474GB
+[8/30] sparse 16v @ 32t (04:56:13)

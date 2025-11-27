@@ -13,7 +13,8 @@ Parallel Matching Engine with global state stack only (no look-free stack)
 #define PARALLELMATCHINGTHREADPOOL_HPP
 
 #include <atomic>
-#include <omp.h>
+#include <thread>
+#include <mutex>
 #include <condition_variable>
 #include <array>
 #include <vector>
@@ -29,6 +30,7 @@ Parallel Matching Engine with global state stack only (no look-free stack)
 #endif
 
 #include "WindowsTime.h"
+
 #include "ARGraph.hpp"
 #include "MatchingEngine.hpp"
 #include "Stack.hpp"
@@ -41,8 +43,10 @@ typedef unsigned short ThreadId;
 constexpr ThreadId NULL_THREAD = (std::numeric_limits<ThreadId>::max)();
 
 template<typename VFState>
-class ParallelMatchingEngine : public MatchingEngine<VFState>
+class ParallelMatchingEngine
+		: public MatchingEngine<VFState>
 {
+
 protected:
 	typedef unsigned short ThreadId;
 	using MatchingEngine<VFState>::solutions;
@@ -54,14 +58,17 @@ protected:
 	struct timeval start_time;
 	struct timeval pool_time;
 	struct timeval exit_time;
-	struct timeval eos_time;
+	struct timeval eos_time; 
 	std::vector<struct timeval> thEndOfSearchTime;
 
-	bool once;
-	int16_t endThreadCount;
+	std::atomic<bool> once;
+
+	std::atomic<int16_t> endThreadCount;
+
 	int16_t cpu;
 	int16_t numThreads;
-	int32_t statesToBeExplored;
+	std::vector<std::thread> pool;
+	std::atomic<int32_t> statesToBeExplored;
 	Stack<VFState*>* globalStateStack;
 	struct timeval time;
 
@@ -71,22 +78,16 @@ protected:
 	virtual void UnprocessedState(ThreadId thread_id){};
 
 	virtual void PutState(VFState* s, ThreadId thread_id) {
-		#pragma omp critical(gss_access)
-		{
-			globalStateStack->push(s);
-		}
+		globalStateStack->push(s);
 	}
 
 	virtual void GetState(VFState** res, ThreadId thread_id)
 	{
 		*res = nullptr;
-		#pragma omp critical(gss_access)
+		std::shared_ptr<VFState* > stackitem = globalStateStack->pop();
+		if(stackitem!=nullptr)
 		{
-			std::shared_ptr<VFState* > stackitem = globalStateStack->pop();
-			if(stackitem!=nullptr)
-			{
-				*res = *(stackitem.get());
-			}
+			*res = *(stackitem.get());
 		}
 	}
 
@@ -94,42 +95,35 @@ protected:
 		return globalStateStack->size();
 	}
 
-	void Run(ThreadId thread_id)
+	void Run(ThreadId thread_id) 
 	{
 		VFState* s = NULL;
 #ifdef DEBUG
 		std::cout<<"Thread["<<thread_id<<"] Started\n";
 #endif
-		int local_states;
-		#pragma omp atomic read
-		local_states = statesToBeExplored;
-
-		while(local_states > 0)
+		while(statesToBeExplored>0)
 		{
 			GetState(&s, thread_id);
 			if(s)
 			{
 				PreprocessState(thread_id);
 				ProcessState(s, thread_id);
-				#pragma omp atomic
 				statesToBeExplored--;
 				delete s;
 				PostprocessState(thread_id);
 			}
 			UnprocessedState(thread_id);
-
-			#pragma omp atomic read
-			local_states = statesToBeExplored;
+			//gettimeofday(&(thEndOfSearchTime[thread_id]),NULL);	
 		}
-
-		int local_count;
-		#pragma omp atomic capture
-		local_count = ++endThreadCount;
-		if(local_count == numThreads)
+		
+		if(++endThreadCount == numThreads)
 		{
+			//std::cout<<"Thread["<<thread_id<<"] is the last\n";
 			gettimeofday(&(eos_time),NULL);
 		}
 
+
+		//Last thread
 #ifdef DEBUG
 		std::cout<<"Thread["<<thread_id<<"] Stopped\n";
 #endif
@@ -142,26 +136,18 @@ protected:
 #endif
 		if (s->IsGoal())
 		{
-			#pragma omp critical(first_solution)
+			if(!once.exchange(true))
 			{
-				if(!once)
-				{
-					once = true;
-					gettimeofday(&(this->fist_solution_time),NULL);
-				}
+				gettimeofday(&(this->fist_solution_time),NULL);
 			}
 
-			#pragma omp atomic
+			//threadSolutionCount[thread_id]++;
 			solCount++;
-
 			if(storeSolutions)
 			{
-				#pragma omp critical(solution_storage)
-				{
-					MatchingSolution sol;
-					s->GetCoreSet(sol);
-					solutions.push_back(sol);
-				}
+				MatchingSolution sol;
+				s->GetCoreSet(sol);
+				solutions.push_back(sol);
 			}
 			if (visit)
 			{
@@ -180,13 +166,13 @@ protected:
 			{
 				ExploreState(s, n1, n2, thread_id);
 			}
-		}
+		}		
 		return false;
+		
 	}
 
 	virtual void ExploreState(VFState *s, nodeID_t n1, nodeID_t n2, ThreadId thread_id)
 	{
-		#pragma omp atomic
 		statesToBeExplored++;
 		VFState* s1 = new VFState(*s);
 		s1->AddPair(n1, n2);
@@ -197,10 +183,10 @@ protected:
 	void SetAffinity(int cpu, pthread_t handle)
 	{
 		cpu_set_t cpuset;
-		CPU_ZERO(&cpuset);
-		CPU_SET(cpu, &cpuset);
+    	CPU_ZERO(&cpuset);
+    	CPU_SET(cpu, &cpuset);
 		int rc = pthread_setaffinity_np(handle, sizeof(cpu_set_t), &cpuset);
-		if (rc != 0)
+		if (rc != 0) 
 		{
 			std::cerr << "Error calling pthread_setaffinity_np: " << rc << "\n";
 		}
@@ -208,7 +194,7 @@ protected:
 #endif
 
 public:
-	ParallelMatchingEngine(unsigned short int numThreads,
+	ParallelMatchingEngine(unsigned short int numThreads, 
 		bool storeSolutions=false,
 		bool lockFree=false,
 		short int cpu = -1,
@@ -219,6 +205,7 @@ public:
 		endThreadCount(0),
 		cpu(cpu),
 		numThreads(numThreads),
+		pool(numThreads),
 		statesToBeExplored(0){
 			if(lockFree)
 			{
@@ -243,23 +230,18 @@ public:
 
 	bool FindAllMatchings(VFState& s)
 	{
+		statesToBeExplored++;
 		PreMatching(&s);
 		gettimeofday(&(this->start_time),NULL);
-
-		// CRITICAL: Initialize state BEFORE starting threads
-		#pragma omp atomic
-		statesToBeExplored++;
-
-		VFState* s0 = new VFState(s);
-		PutState(s0, NULL_THREAD);
-
-#ifdef DEBUG
-		std::cout<<"First State in GSS\n";
-#endif
-
-		// NOW start threads (they have work to do)
 		StartPool();
 		gettimeofday(&(this->pool_time),NULL);
+
+		
+		VFState* s0 = new VFState(s);
+		PutState(s0, NULL_THREAD);
+#ifdef DEBUG
+		std::cout<<"First State in GGS\n";
+#endif
 
 #ifdef DEBUG
 		std::cout<<"Pool Started\n";
@@ -267,9 +249,23 @@ public:
 
 		JoinPool();
 		gettimeofday(&(this->exit_time),NULL);
-
 #ifdef VERBOSE
+		//Getting higher End Of Search Time
+		/*double maxEOFTime = 0;
+		double actualEOFTime = 0;
+		struct timeval maxtime;
+		for(int i=0; i<numThreads; i++)
+		{
+			actualEOFTime = GetElapsedTime(pool_time, thEndOfSearchTime[i]);
+			if(actualEOFTime > maxEOFTime)
+			{
+				maxEOFTime = actualEOFTime;
+				maxtime = thEndOfSearchTime[i];
+			}
+		}*/
+
 		std::cout<<"Pool Started: "<<GetElapsedTime(start_time, pool_time)<<std::endl;
+		//std::cout<<"Last Thread Stopped: "<<maxEOFTime<<std::endl;
 		std::cout<<"Pool Closed: "<<GetElapsedTime(pool_time, eos_time)<<std::endl;
 		std::cout<<"Pool Closed: "<<GetElapsedTime(eos_time, exit_time)<<std::endl;
 #endif
@@ -277,7 +273,7 @@ public:
 	}
 
 	inline size_t GetThreadCount() const {
-		return numThreads;
+		return pool.size();
 	}
 
 	void ResetSolutionCounter()
@@ -289,18 +285,43 @@ public:
 
 	void StartPool()
 	{
-		#pragma omp parallel num_threads(numThreads)
+		int current_cpu = cpu;
+		for (size_t i = 0; i < numThreads; ++i)
 		{
-			ThreadId thread_id = omp_get_thread_num();
-			this->Run(thread_id);
+			pool[i] = std::thread([this, i] { this->Run(i); });
+#ifndef WIN32
+			//If cpu is not -1 set the thread affinity starting from the cpu
+			if (current_cpu > -1)
+			{
+				SetAffinity(current_cpu, pool[i].native_handle());
+				current_cpu++;
+			}
+#endif
 		}
 	}
 
 	inline void JoinPool()
 	{
-		// OpenMP implicit barrier handles joining
-		// Nothing needed here
+		//std::cout<<"Waiting for the poll to finish";
+		for (auto &th : pool) {
+			if (th.joinable()) {
+				th.join();
+			}
+		}
+		
+		//Counting solution
+		/*for (int16_t i = 0; i < numThreads; i++)
+		{
+			solCount += threadSolutionCount[i];
+			threadSolutionCount[i]=0;
+			if(storeSolutions)
+			{
+				std::move(threadSolutionFound[i].begin(), 
+					threadSolutionFound[i].end(), std::back_inserter(solutions));
+			}
+		}*/
 	}
+
 };
 
 }
