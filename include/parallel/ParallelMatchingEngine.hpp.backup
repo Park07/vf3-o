@@ -63,7 +63,6 @@ protected:
 	int16_t numThreads;
 	int32_t statesToBeExplored;
 	Stack<VFState*>* globalStateStack;
-	std::atomic<size_t> gssSize{0};
 	struct timeval time;
 
 	virtual void PreMatching(VFState* s){};
@@ -72,18 +71,22 @@ protected:
 	virtual void UnprocessedState(ThreadId thread_id){};
 
 	virtual void PutState(VFState* s, ThreadId thread_id) {
-		globalStateStack->push(s);
-		gssSize++;
+		#pragma omp critical(gss_access)
+		{
+			globalStateStack->push(s);
+		}
 	}
 
 	virtual void GetState(VFState** res, ThreadId thread_id)
 	{
 		*res = nullptr;
-		std::shared_ptr<VFState* > stackitem = globalStateStack->pop();
-		if(stackitem!=nullptr)
+		#pragma omp critical(gss_access)
 		{
-			*res = *(stackitem.get());
-			gssSize--;
+			std::shared_ptr<VFState* > stackitem = globalStateStack->pop();
+			if(stackitem!=nullptr)
+			{
+				*res = *(stackitem.get());
+			}
 		}
 	}
 
@@ -183,11 +186,6 @@ protected:
 
 	virtual void ExploreState(VFState *s, nodeID_t n1, nodeID_t n2, ThreadId thread_id)
 	{
-		// Wait if GSS too large (check without locking)
-		while(gssSize.load() > 20000) {   // ← USE gssSize, not globalStateStack->size()
-			// Spin
-		}
-
 		#pragma omp atomic
 		statesToBeExplored++;
 		VFState* s1 = new VFState(*s);

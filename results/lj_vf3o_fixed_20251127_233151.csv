@@ -1,0 +1,11 @@
+Dataset,Type,Size,Threads,Solutions,Time_s,Memory_KB,CPU_Percent,UserTime_s,SysTime_s,VoluntaryCS,InvoluntaryCS,PageFaults,Status
+livejournal,sparse,8,1,0,90,90258612,99,63.65,28.52,5,268,22610681,SUCCESS
+livejournal,sparse,8,8,55,90,479638816,338,132.89,216.26,303914,528,120023782,SUCCESS
+livejournal,sparse,8,16,159,90,523245068,622,156.39,501.78,699689,12257,130962185,SUCCESS
+livejournal,sparse,8,32,46,90,523156844,1048,184.06,934.79,1361385,7405,131247024,SUCCESS
+livejournal,sparse,8,64,18,90,,,,,,,,SUCCESS
+livejournal,sparse,16,1,Terminated,90,,,,,,,,SUCCESS
+livejournal,sparse,16,8,3,90,396328196,312,131.92,184.65,249259,545,100097578,SUCCESS
+livejournal,sparse,16,16,1,90,,,,,,,,SUCCESS
+livejournal,sparse,16,32,1,90,,,,,,,,SUCCESS
+livejournal,sparse,16,64,Terminated,90,,,,,,,,SUCCESS

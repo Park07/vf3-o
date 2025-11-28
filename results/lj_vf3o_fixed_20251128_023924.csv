@@ -1,0 +1,3 @@
+Dataset,Type,Size,Threads,Solutions,Time_s,Memory_KB,CPU_Percent,UserTime_s,SysTime_s,VoluntaryCS,InvoluntaryCS,PageFaults,Status
+livejournal,sparse,8,1,0,90,93651204,99,63.36,28.75,1203,235,23458850,SUCCESS
+livejournal,sparse,8,8,253,90,480533484,353,141.70,222.57,299076,639,120249132,SUCCESS
