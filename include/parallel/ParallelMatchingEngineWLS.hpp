@@ -7,7 +7,8 @@
 
 /*
 * VF3P2
-* Parallel Matching Engine with local and global state stack (no look-free stack)
+* Parallel Matching Engine with local and global state stack (no lock-free stack)
+* OpenMP version - matches pthread behavior exactly
 */
 #ifndef PARALLELMATCHINGTHREADPOOLWLS_HPP
 #define PARALLELMATCHINGTHREADPOOLWLS_HPP
@@ -33,6 +34,7 @@ class ParallelMatchingEngineWLS
 		: public ParallelMatchingEngine<VFState>
 {
 private:
+	using ParallelMatchingEngine<VFState>::statesToBeExplored;
 
     uint16_t ssrLimitLevelForGlobalStack; 					//all the states belonging to ssr levels leq the this limit are put inside the global stack
 	uint16_t localStackLimitSize;         					//limit size for the local stack. All the exceeding states are stored in the global stack
@@ -70,6 +72,7 @@ private:
 		}
 	}
 
+	// MATCHES PTHREAD ORIGINAL - decides GSS vs LSS based on depth and LSS size
 	void PutState(VFState* s, ThreadId thread_id) {
 		if(thread_id == NULL_THREAD || 
 			s->CoreLen() <= ssrLimitLevelForGlobalStack || 
@@ -83,12 +86,11 @@ private:
 		}
 	}
 
-	//In questo modo, quando sono finiti gli stati i thread rimangono appesi.
-	//Come facciamo a definire una condizione di chiusura dei thread?
+	// MATCHES PTHREAD ORIGINAL - gets from LSS first, then GSS
 	void GetState(VFState** res, ThreadId thread_id)
 	{
 		*res = NULL;
-        //Getting from local stack firts
+        //Getting from local stack first
         if(localStateStack[thread_id].size())
         {
            *res = localStateStack[thread_id].back();

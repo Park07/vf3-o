@@ -1,0 +1,127 @@
+nohup: ignoring input
+================================================================
+VF3 OpenMP - LiveJournal Complete Performance Analysis
+Timeout: 90 seconds per test
+Threads: 1, 8, 16, 32, 64
+Query sizes: 8v, 16v, 32v (dense + sparse)
+Total tests: 30
+================================================================
+
+=== Testing dense queries ===
+[Test 1/30] dense 8v @ 1t
+  → Solutions: 0, Mem: 89GB, CPU: 99%
+[Test 2/30] dense 8v @ 8t
+  → Solutions: 1159, Mem: 462GB, CPU: 355%
+[Test 3/30] dense 8v @ 16t
+  → Solutions: 312, Mem: 498GB, CPU: 609%
+[Test 4/30] dense 8v @ 32t
+Terminated
+  → Solutions: 303, Mem: 0GB, CPU: 0%
+[Test 5/30] dense 8v @ 64t
+Terminated
+  → Solutions: Terminated, Mem: 0GB, CPU: 0%
+[Test 6/30] dense 16v @ 1t
+  → Solutions: 0, Mem: 85GB, CPU: 99%
+[Test 7/30] dense 16v @ 8t
+  → Solutions: 14, Mem: 463GB, CPU: 353%
+[Test 8/30] dense 16v @ 16t
+Terminated
+  → Solutions: 16, Mem: 0GB, CPU: 0%
+[Test 9/30] dense 16v @ 32t
+Terminated
+  → Solutions: 0, Mem: 0GB, CPU: 0%
+[Test 10/30] dense 16v @ 64t
+Terminated
+  → Solutions: 0, Mem: 0GB, CPU: 0%
+[Test 11/30] dense 32v @ 1t
+  → Solutions: 0, Mem: 83GB, CPU: 99%
+[Test 12/30] dense 32v @ 8t
+  → Solutions: 0, Mem: 397GB, CPU: 351%
+[Test 13/30] dense 32v @ 16t
+Terminated
+  → Solutions: 0, Mem: 0GB, CPU: 0%
+[Test 14/30] dense 32v @ 32t
+Terminated
+  → Solutions: Terminated, Mem: 0GB, CPU: 0%
+[Test 15/30] dense 32v @ 64t
+Terminated
+  → Solutions: 0, Mem: 0GB, CPU: 0%
+
+=== Testing sparse queries ===
+[Test 16/30] sparse 8v @ 1t
+  → Solutions: 0, Mem: 84GB, CPU: 99%
+[Test 17/30] sparse 8v @ 8t
+  → Solutions: 92, Mem: 407GB, CPU: 324%
+[Test 18/30] sparse 8v @ 16t
+Terminated
+  → Solutions: 140, Mem: 0GB, CPU: 0%
+[Test 19/30] sparse 8v @ 32t
+Terminated
+  → Solutions: 84, Mem: 0GB, CPU: 0%
+[Test 20/30] sparse 8v @ 64t
+Terminated
+  → Solutions: 0, Mem: 0GB, CPU: 0%
+[Test 21/30] sparse 16v @ 1t
+  → Solutions: 0, Mem: 83GB, CPU: 99%
+[Test 22/30] sparse 16v @ 8t
+  → Solutions: 2, Mem: 417GB, CPU: 335%
+[Test 23/30] sparse 16v @ 16t
+Terminated
+  → Solutions: 1, Mem: 0GB, CPU: 0%
+[Test 24/30] sparse 16v @ 32t
+Terminated
+  → Solutions: 3, Mem: 0GB, CPU: 0%
+[Test 25/30] sparse 16v @ 64t
+Terminated
+  → Solutions: 0, Mem: 0GB, CPU: 0%
+[Test 26/30] sparse 32v @ 1t
+  → Solutions: 0, Mem: 87GB, CPU: 99%
+[Test 27/30] sparse 32v @ 8t
+  → Solutions: 0, Mem: 387GB, CPU: 307%
+[Test 28/30] sparse 32v @ 16t
+Terminated
+  → Solutions: 0, Mem: 0GB, CPU: 0%
+[Test 29/30] sparse 32v @ 32t
+Terminated
+  → Solutions: 0, Mem: 0GB, CPU: 0%
+[Test 30/30] sparse 32v @ 64t
+Terminated
+  → Solutions: 0, Mem: 0GB, CPU: 0%
+
+================================================================
+COMPLETE! Results saved to:
+/home/williamp/vf3-o/results/lj_vf3openmp_20251128_212217/lj_vf3openmp_performance.csv
+
+Type,Size,Threads,Solutions,TotalTime_s,MaxMemory_KB,CPU_Percent,UserTime_s,SysTime_s,VoluntaryCS,InvoluntaryCS,PageFaults,Status
+dense,8,1,0,37.9454,94048492,99,63.34,28.93,4,283,23558177,TIMEOUT
+dense,8,8,1159,38.2731,485111136,355,141.75,225.77,304223,654,121568409,TIMEOUT
+dense,8,16,312,37.3071,522302664,609,161.64,487.49,695325,12317,130863995,TIMEOUT
+dense,8,32,303,27.3642,0,0,0,0,0,0,0,TIMEOUT
+dense,8,64,Terminated,0,0,0,0,0,0,0,0,OK
+dense,16,1,0,36.5085,89419356,99,63.77,29.00,204,267,22400902,TIMEOUT
+dense,16,8,14,38.0559,485596160,353,138.81,227.36,308076,660,121594328,TIMEOUT
+dense,16,16,16,38.3306,0,0,0,0,0,0,0,TIMEOUT
+dense,16,32,0,26.7915,0,0,0,0,0,0,0,TIMEOUT
+dense,16,64,0,0,0,0,0,0,0,0,0,OK
+dense,32,1,0,35.8362,87957940,99,64.48,28.23,900,259,22112550,TIMEOUT
+dense,32,8,0,37.0816,416993040,351,169.22,189.09,227110,700,106928953,TIMEOUT
+dense,32,16,0,35.8761,0,0,0,0,0,0,0,TIMEOUT
+dense,32,32,Terminated,0,0,0,0,0,0,0,0,OK
+dense,32,64,0,26.9685,0,0,0,0,0,0,0,TIMEOUT
+sparse,8,1,0,36.5012,88290708,99,63.54,29.85,134,283,22123062,TIMEOUT
+sparse,8,8,92,33.3494,427494448,324,132.81,200.00,267854,637,107912140,TIMEOUT
+sparse,8,16,140,30.6733,0,0,0,0,0,0,0,TIMEOUT
+sparse,8,32,84,27.6194,0,0,0,0,0,0,0,TIMEOUT
+sparse,8,64,0,0,0,0,0,0,0,0,0,OK
+sparse,16,1,0,35.5823,87227552,99,63.15,29.00,6582,279,22040138,TIMEOUT
+sparse,16,8,2,35.128,437443740,335,135.08,209.96,275902,686,109845400,TIMEOUT
+sparse,16,16,1,30.588,0,0,0,0,0,0,0,TIMEOUT
+sparse,16,32,3,30.8532,0,0,0,0,0,0,0,TIMEOUT
+sparse,16,64,0,19.7599,0,0,0,0,0,0,0,TIMEOUT
+sparse,32,1,0,37.0797,91389416,99,63.13,29.79,5,231,22893385,TIMEOUT
+sparse,32,8,0,30.7512,406328220,307,133.74,181.02,247619,572,101971063,TIMEOUT
+sparse,32,16,0,27.5207,0,0,0,0,0,0,0,TIMEOUT
+sparse,32,32,0,0,0,0,0,0,0,0,0,OK
+sparse,32,64,0,22.9869,0,0,0,0,0,0,0,TIMEOUT
+================================================================
+Also copied to: ~/vf3-o/results/lj_vf3openmp_FINAL.csv

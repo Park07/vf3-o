@@ -6,7 +6,8 @@
  */
 
 /*
-Parallel Matching Engine with global state stack only (no look-free stack)
+Parallel Matching Engine with global state stack only (no lock-free stack)
+OpenMP version - matches pthread behavior exactly
 */
 
 #ifndef PARALLELMATCHINGTHREADPOOL_HPP
@@ -181,13 +182,9 @@ protected:
 		return false;
 	}
 
+	// MATCHES PTHREAD ORIGINAL - simple GSS push, no depth-based logic
 	virtual void ExploreState(VFState *s, nodeID_t n1, nodeID_t n2, ThreadId thread_id)
 	{
-		// Wait if GSS too large (check without locking)
-		while(gssSize.load() > 20000) {   // ← USE gssSize, not globalStateStack->size()
-			// Spin
-		}
-
 		#pragma omp atomic
 		statesToBeExplored++;
 		VFState* s1 = new VFState(*s);
