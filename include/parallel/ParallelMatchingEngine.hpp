@@ -291,6 +291,7 @@ public:
 		#pragma omp parallel num_threads(numThreads)
 		{
 			ThreadId thread_id = omp_get_thread_num();
+			#pragma omp barrier  // All threads ready before any starts
 			this->Run(thread_id);
 		}
 	}
